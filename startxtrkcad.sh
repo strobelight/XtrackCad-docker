@@ -21,6 +21,9 @@ XTRK_VER=${XTRK_VER:-5.3.0}
 # start xtrkcad
 #####################################################################
 
+# do some logging
+export LOGFILE=/tmp/startxtrkcad.log
+exec > >(tee $LOGFILE)
 exec 2>&1
 
 #####################################################################
@@ -52,7 +55,7 @@ start_openbox() {
     #echo "sleeping for debug"
     #sleep 3600
     openbox-session &
-    xtrkcad
+    xtrkcad $HOME/$1
 }
 
 #####################################################################
@@ -68,8 +71,8 @@ startxtrkcad_container() {
     fi
     # --keepcache excludes --rm so need to remove any exited containers
     docker rm xtrkcad >/dev/null 2>&1
-    #echo "nohup x11docker $X11DEBUG --home=$XTRKCAD_DATADIR --xephyr --user=$DOCKER_USER --desktop --size=1920x1280 --name=xtrkcad xtrkcad:${XTRK_VER} /startxtrkcad.sh  >/dev/null 2>&1 &"
-    nohup x11docker $X11DEBUG --home=$XTRKCAD_DATADIR --xephyr --user=$DOCKER_USER --desktop --size=1920x1280 --name=xtrkcad xtrkcad:${XTRK_VER} /startxtrkcad.sh  >/dev/null 2>&1 &
+    echo "nohup x11docker $X11DEBUG --home=$XTRKCAD_DATADIR --xephyr --user=$DOCKER_USER --desktop --size=1920x1280 --name=xtrkcad xtrkcad:${XTRK_VER} /startxtrkcad.sh $* >/dev/null 2>&1 &"
+    nohup x11docker $X11DEBUG --home=$XTRKCAD_DATADIR --xephyr --user=$DOCKER_USER --desktop --size=1920x1280 --name=xtrkcad xtrkcad:${XTRK_VER} /startxtrkcad.sh $* >/dev/null 2>&1 &
     echo "log at ~/.cache/x11docker/x11docker.log when session over"
     echo "your xtrkcad files (settings, track plans, etc.) in $XTRKCAD_DATADIR"
 }
@@ -114,8 +117,9 @@ vnc_password() {
 #####################################################################
 if running_in_docker; then
     xtrkcad_init
-    start_openbox
+    start_openbox $*
 else
     xtrkcad_hostinit
-    startxtrkcad_container $*
+    XTRK_FILE=$(basename $1 2>/dev/null)
+    startxtrkcad_container $XTRK_FILE
 fi

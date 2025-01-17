@@ -38,6 +38,8 @@ export DOCKER_USER=$USER
 ./startxtrkcad.sh
 ```
 
+Output is also captured in /tmp/startxtrkcad.log.
+
 ## Debug
 If the X window opens and closes during startup, something is wrong, 😉.
 
