@@ -39,7 +39,7 @@ export DOCKER_USER=$USER
 ```
 
 ## Debug
-If the X window opens and closes during startup, something is wrong, :-;.
+If the X window opens and closes during startup, something is wrong, 😉.
 
 This information is provided here since I can't remember all the steps I do to troubleshoot. You may find this useful too if you dare to dive into the weeds of X11 and containers.
 
