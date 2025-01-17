@@ -52,6 +52,7 @@ RUN \
     && true
 
 COPY --chown=${DOCKER_UID}:${DOCKER_GID} startxtrkcad.sh .
+COPY --chown=${DOCKER_UID}:${DOCKER_GID} menu .
 
 USER ${DOCKER_USER}
 ENV HOME=/home/${DOCKER_USER}

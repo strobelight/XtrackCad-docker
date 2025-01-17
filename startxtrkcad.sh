@@ -54,8 +54,12 @@ start_session() {
     echo "$ME: Executing in container, start window mgr and xtrkcad"
     #echo "sleeping for debug"
     #sleep 3600
-    startfluxbox &
     cd $HOME
+    if [ ! -d .fluxbox ]; then
+        mkdir .fluxbox
+        cp /menu .fluxbox
+    fi
+    startfluxbox &
     xtrkcad $1
 }
 
@@ -122,5 +126,7 @@ if running_in_docker; then
 else
     xtrkcad_hostinit
     XTRK_FILE=$(basename $1 2>/dev/null)
+    # uncomment for debug only to start container with clean slate (removes track plans!)
+    #rm -rf $XTRKCAD_DATADIR
     startxtrkcad_container $XTRK_FILE
 fi

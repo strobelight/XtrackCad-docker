@@ -37,6 +37,11 @@ export XTRK_VER=5.3.0
 export DOCKER_USER=$USER
 ./startxtrkcad.sh
 ```
+After the first time, you should find XTrackCAD as an Application (under Graphics) and so drag to your toolbar for easy start. File associations are also put in place so that saved track plans can be double-clicked and worked on.
+
+The directory `~/xtrkcad` on the host is your home directory in the container in which should be stored the track plans. As it's the home directory, you'll find other files here too that are specific to configuration changes you've made in the container.
+
+Right-click in an empty spot and find a menu item for `XTrackCAD Doc` which brings up the contents.html file using firefox. The HELP menu in XTrackCAD will conflict as firefox apparently only allows one instance to run. If run via the Help menu, note that there's some sort of redraw problem as you wont see the XTrackCAD window being updated and dragging the browser over it shows the default X-window root background. I'm not sure where the issue is.
 
 Output is also captured in /tmp/startxtrkcad.log.
 
