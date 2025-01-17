@@ -25,8 +25,10 @@ RUN \
 RUN \
     apt-get update \
     && apt-get -y install wget sudo file less \
-    && apt-get -qqy install x11-apps \
-    && apt-get -y install openbox menu python3-xdg \
+    && apt-get -qqy install xorg x11-apps \
+    && apt-get -y install menu python3-xdg \
+    && apt-get -y install fluxbox \
+    && apt-get -y install firefox-esr \
     && true
 
 # xtrkcad

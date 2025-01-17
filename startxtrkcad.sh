@@ -48,13 +48,13 @@ xtrkcad_init() {
 }
 
 #####################################################################
-#   S T A R T   O P E N B O X
+#   S T A R T   S E S S I O N
 #####################################################################
-start_openbox() {
-    echo "$ME: Executing in container, start openbox and xtrkcad"
+start_session() {
+    echo "$ME: Executing in container, start window mgr and xtrkcad"
     #echo "sleeping for debug"
     #sleep 3600
-    openbox-session &
+    startfluxbox &
     cd $HOME
     xtrkcad $1
 }
@@ -118,7 +118,7 @@ vnc_password() {
 #####################################################################
 if running_in_docker; then
     xtrkcad_init
-    start_openbox $*
+    start_session $*
 else
     xtrkcad_hostinit
     XTRK_FILE=$(basename $1 2>/dev/null)

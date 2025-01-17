@@ -70,7 +70,7 @@ xeyes
 # ctrl-c to quit
 
 # start the window manager and then xeyes
-openbox-session >/dev/null 2>&1 &
+startfluxbox >/dev/null 2>&1 &
 xeyes
 
 # this time the eyes are in a window which can be moved around with the mouse
@@ -81,8 +81,8 @@ xtrkcad
 
 # if that works, quit the program (File -> Exit)
 
-# quit openbox
-pkill -f openbox
+# quit fluxbox
+pkill -f fluxbox
 
 # if you have gotten this far, the pieces work manually so something up with the x11docker script.
 ./startxtrkcad.sh -v
