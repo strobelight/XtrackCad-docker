@@ -11,6 +11,7 @@ It makes use of [x11docker/xserver](https://hub.docker.com/r/x11docker/xserver) 
 * xhost
 * xinit
 * xdpyinfo
+* docker
 * `curl -fsSL https://raw.githubusercontent.com/mviereck/x11docker/master/x11docker | sudo bash -s -- --update-master`
 
 ## Build xtrkcad container
