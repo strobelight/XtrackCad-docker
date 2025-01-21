@@ -57,7 +57,14 @@ start_session() {
     cd $HOME
     if [ ! -d .fluxbox ]; then
         mkdir .fluxbox
-        cp /menu .fluxbox
+        cp /fluxbox/* .fluxbox
+    fi
+    if [ ! -d .config/rox.sourceforge.net ]; then
+        mkdir -p .config/rox.sourceforge.net
+        cp -r /rox.sourceforge.net .config
+    fi
+    if [ ! -L examples ]; then
+        ln -s /usr/share/xtrkcad/examples examples
     fi
     startfluxbox &
     xtrkcad $1

@@ -44,6 +44,10 @@ The directory `~/xtrkcad` on the host is your home directory in the container in
 
 Right-click in an empty spot and find a menu item for `XTrackCAD Doc` which brings up the contents.html file using firefox. The HELP menu in XTrackCAD will conflict as firefox apparently only allows one instance to run. If run via the Help menu, note that there's some sort of redraw problem as you wont see the XTrackCAD window being updated and dragging the browser over it shows the default X-window root background. I'm not sure where the issue is.
 
+Here's what right-clicking in an empty portion of the window should look like:
+
+![Image](https://github.com/user-attachments/assets/6a7af21e-526c-4107-9928-ed1247fa132b)
+
 Output is also captured in /tmp/startxtrkcad.log.
 
 ## Debug

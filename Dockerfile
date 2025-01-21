@@ -29,6 +29,7 @@ RUN \
     && apt-get -y install menu python3-xdg \
     && apt-get -y install fluxbox \
     && apt-get -y install firefox-esr \
+    && apt-get -y install rox-filer \
     && true
 
 # xtrkcad
@@ -52,7 +53,8 @@ RUN \
     && true
 
 COPY --chown=${DOCKER_UID}:${DOCKER_GID} startxtrkcad.sh .
-COPY --chown=${DOCKER_UID}:${DOCKER_GID} menu .
+COPY --chown=${DOCKER_UID}:${DOCKER_GID} fluxbox fluxbox/
+COPY --chown=${DOCKER_UID}:${DOCKER_GID} rox-filer.config .
 
 USER ${DOCKER_USER}
 ENV HOME=/home/${DOCKER_USER}

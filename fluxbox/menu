@@ -2,6 +2,7 @@
 [begin] (fluxbox)
 [exec] (XTrackCAD) {xtrkcad} <xtrkcad>
 [exec] (XTrackCAD Doc) {firefox /usr/share/xtrkcad/html/contents.html} <firefox-esr>
+[exec] (File Manager) {rox-filer}
 [separator]
 [include] (/etc/X11/fluxbox/fluxbox-menu)
 [end]
