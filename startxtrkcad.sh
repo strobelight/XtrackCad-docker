@@ -83,8 +83,8 @@ startxtrkcad_container() {
     fi
     # --keepcache excludes --rm so need to remove any exited containers
     docker rm xtrkcad >/dev/null 2>&1
-    echo "nohup x11docker $X11DEBUG --home=$XTRKCAD_DATADIR --xephyr --user=$DOCKER_USER --desktop --size=1920x1280 xtrkcad:${XTRK_VER} /startxtrkcad.sh $* >/dev/null 2>&1 &"
-    nohup x11docker $X11DEBUG --home=$XTRKCAD_DATADIR --xephyr --user=$DOCKER_USER --desktop --size=1920x1280 xtrkcad:${XTRK_VER} /startxtrkcad.sh $* >/dev/null 2>&1 &
+    echo "nohup x11docker $X11DEBUG --printer --pulseaudio=host --network --home=$XTRKCAD_DATADIR --xephyr --user=$DOCKER_USER --desktop --size=1920x1280 xtrkcad:${XTRK_VER} /startxtrkcad.sh $* >/dev/null 2>&1 &"
+    nohup x11docker $X11DEBUG --printer --pulseaudio=host --network --home=$XTRKCAD_DATADIR --xephyr --user=$DOCKER_USER --desktop --size=1920x1280 xtrkcad:${XTRK_VER} /startxtrkcad.sh $* >/dev/null 2>&1 &
     echo "log at ~/.cache/x11docker/x11docker.log when session over"
     echo "your xtrkcad files (settings, track plans, etc.) in $XTRKCAD_DATADIR"
 }

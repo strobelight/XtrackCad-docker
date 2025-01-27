@@ -5,6 +5,7 @@ ARG XTRK_REL=GA-1
 ARG XTRK_ARCH=x86_64
 ARG DOCKER_UID=1000
 ARG DOCKER_GID=1000
+ARG DOCKER_AUDIO_GID=996
 # must pass a build arg value
 ARG DOCKER_USER
 
@@ -30,6 +31,9 @@ RUN \
     && apt-get -y install fluxbox \
     && apt-get -y install firefox-esr \
     && apt-get -y install rox-filer \
+    && apt-get -y install libcups2 \
+    && apt-get -y install alsa-utils \
+    && apt-get -y install libpulse0 \
     && true
 
 # xtrkcad
@@ -43,6 +47,8 @@ RUN \
 RUN \
     userdel -f ubuntu || true \
     && useradd -m -u ${DOCKER_UID} ${DOCKER_USER} 2>&1 \
+    && groupmod --gid ${DOCKER_AUDIO_GID} audio \
+    && usermod -aG audio ${DOCKER_USER} \
     && echo "${DOCKER_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${DOCKER_USER} \
     && true
 
