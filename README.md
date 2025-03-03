@@ -69,10 +69,10 @@ Xephyr :101 -screen 1920x1280 -retro &
 # rm -rf /tmp/.X11-unix/X101
 
 # run container (presumes pulseaudio)
-docker run --rm -d  --name xtrkcad --network host --privileged -v /run/user/1000/pulse/native:/tmp/pulseaudio.socket.host -e PULSE_SERVER="unix:/tmp/pulseaudio.socket.host" -v /run/cups:/run/cups -e CUPS_SERVER=/run/cups/cups.sock -e DISPLAY=:101 -v /tmp/.X11-unix/X101:/tmp/.X11-unix/X101 -v $HOME/xtrkcad:/home/$DOCKER_USER xtrkcad:$XTRK_VER bash
+docker run --rm -d  --name xtrkcad --network host --privileged -v /run/user/1000/pulse/native:/tmp/pulseaudio.socket.host -e PULSE_SERVER="unix:/tmp/pulseaudio.socket.host" -v /run/cups:/run/cups -e CUPS_SERVER=/run/cups/cups.sock -e DISPLAY=:101 -v /tmp/.X11-unix/X101:/tmp/.X11-unix/X101 -v $HOME/xtrkcad:/home/$DOCKER_USER -h xtrkcad-on-docker xtrkcad:$XTRK_VER
 
 # if that fails, try (presumes pulseaudio)
-docker run --rm -it  --name xtrkcad --network host --privileged -v /run/user/1000/pulse/native:/tmp/pulseaudio.socket.host -e PULSE_SERVER="unix:/tmp/pulseaudio.socket.host" -v /run/cups:/run/cups -e CUPS_SERVER=/run/cups/cups.sock -e DISPLAY=:101 -v /tmp/.X11-unix/X101:/tmp/.X11-unix/X101 -v $HOME/xtrkcad:/home/$DOCKER_USER xtrkcad:$XTRK_VER bash
+docker run --rm -it  --name xtrkcad --network host --privileged -v /run/user/1000/pulse/native:/tmp/pulseaudio.socket.host -e PULSE_SERVER="unix:/tmp/pulseaudio.socket.host" -v /run/cups:/run/cups -e CUPS_SERVER=/run/cups/cups.sock -e DISPLAY=:101 -v /tmp/.X11-unix/X101:/tmp/.X11-unix/X101 -v $HOME/xtrkcad:/home/$DOCKER_USER -h xtrkcad-on-docker xtrkcad:$XTRK_VER bash
 
 # any errors here means container is corrupt and needs to be rebuilt
 

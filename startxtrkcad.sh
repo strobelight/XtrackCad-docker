@@ -44,7 +44,7 @@ xtrkcad_init() {
     /usr/share/xtrkcad/xtrkcad-setup install /usr/share/xtrkcad/
     chmod +x ~/Desktop/xtrkcad.desktop
     mkdir -p ~/.xtrkcad
-    echo "xtrkcad_init: $(date)" > ~/.xtrkcad/startup.log
+    #echo "xtrkcad_init: $(date)" > ~/.xtrkcad/startup.log
 }
 
 #####################################################################
@@ -67,7 +67,70 @@ start_session() {
         ln -s /usr/share/xtrkcad/examples examples
     fi
     startfluxbox &
-    xtrkcad $1
+    LOG_ALLMODULES=" \
+        -d Bezier=1 \
+        -d block=1 \
+        -d carDlgList=1 \
+        -d carDlgState=1 \
+        -d carInvList=1 \
+        -d carList=1 \
+        -d command=1 \
+        -d control=1 \
+        -d Cornu=1 \
+        -d cornuturnoutdesigner=1 \
+        -d curve=1 \
+        -d curveSegs=1 \
+        -d dumpElev=1 \
+        -d ease=1 \
+        -d endPt=1 \
+        -d group=1 \
+        -d init=1 \
+        -d join=1 \
+        -d locale=1 \
+        -d malloc=0 \
+        -d mapsize=1 \
+        -d modify=1 \
+        -d mouse=0 \
+        -d pan=1 \
+        -d paraminput=1 \
+        -d paramlayout=1 \
+        -d params=1 \
+        -d paramupdate=1 \
+        -d playbackcursor=1 \
+        -d print=1 \
+        -d profile=1 \
+        -d readTracks=1 \
+        -d redraw=1 \
+        -d regression=1 \
+        -d scale=1 \
+        -d sensor=1 \
+        -d shortPath=1 \
+        -d signal=1 \
+        -d splitturnout=1 \
+        -d Structure=1 \
+        -d suppresscheckpaths=1 \
+        -d switchmotor=1 \
+        -d timedrawgrid=1 \
+        -d timedrawtracks=1 \
+        -d timemainredraw=1 \
+        -d timereadfile=1 \
+        -d track=1 \
+        -d trainMove=1 \
+        -d trainPlayback=1 \
+        -d traverseBezier=1 \
+        -d traverseBezierSegs=1 \
+        -d traverseCornu=1 \
+        -d traverseJoint=1 \
+        -d traverseTurnout=1 \
+        -d turnout=1 \
+        -d undo=1 \
+        -d zoom=1 \
+    "
+    LOGFILE=".xtrkcad/xtrkcad.$(date '+%a%H').log"
+    rm -f ${LOGFILE}.bak
+    mv ${LOGFILE} ${LOGFILE}.bak 2>/dev/null
+    rm -f ${LOGFILE}
+    xtrkcad -v -l $LOGFILE $LOG_ALLMODULES $1
 }
 
 #####################################################################
