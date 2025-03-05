@@ -63,6 +63,9 @@ start_session() {
         mkdir -p .config/rox.sourceforge.net
         cp -r /rox.sourceforge.net .config
     fi
+    if [ ! -L xtrkcad ]; then
+        ln -s /usr/share/xtrkcad xtrkcad
+    fi
     if [ ! -L examples ]; then
         ln -s /usr/share/xtrkcad/examples examples
     fi

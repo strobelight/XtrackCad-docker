@@ -46,7 +46,9 @@ Right-click in an empty spot and find a menu item for `XTrackCAD Doc` which brin
 
 Here's what right-clicking in an empty portion of the window should look like:
 
-![Image](https://github.com/user-attachments/assets/6a7af21e-526c-4107-9928-ed1247fa132b)
+![Image](https://github.com/user-attachments/assets/30ceb023-1151-4803-b8dd-35b4cb6cec7c)
+
+If you resize the X11 window, you'll need to click the `Restart Window Mgr` entry to see the toolbar at the bottom again. Menu items below this are defaults and not maintained by me. A word of caution: clicking `Exit` only exits the window manager thus losing control of any open windows under the X11 window, so don't do this. If you happen to, then close the entire X11 window and restart. Another way is to `docker exec` into the container and run `/usr/bin/startfluxbox &`.
 
 Output is also captured in /tmp/startxtrkcad.log.
 
