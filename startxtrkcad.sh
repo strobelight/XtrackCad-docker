@@ -70,6 +70,7 @@ start_session() {
         ln -s /usr/share/xtrkcad/examples examples
     fi
     startfluxbox &
+    env|sort
     LOG_ALLMODULES=" \
         -d Bezier=1 \
         -d block=1 \
@@ -133,7 +134,8 @@ start_session() {
     rm -f ${LOGFILE}.bak
     mv ${LOGFILE} ${LOGFILE}.bak 2>/dev/null
     rm -f ${LOGFILE}
-    xtrkcad -v -l $LOGFILE $LOG_ALLMODULES $1
+    xtrkcad -v -l $LOGFILE $LOG_ALLMODULES "$1"
+    #xterm
 }
 
 #####################################################################
@@ -144,13 +146,28 @@ startxtrkcad_container() {
     mkdir -p $XTRKCAD_DATADIR
     if [ "$1" = "-v" ]; then
         X11DEBUG="-V --keepcache"
+        shift
     else
         X11DEBUG=""
     fi
+    # check for minimum paths
+    BIN=$(echo "x:$PATH:x" | tr ':' '\n' | grep "^/bin$")
+    USRBIN=$(echo "x:$PATH:x" | tr ':' '\n' | grep "^/usr/bin$")
+    LOCALBIN=$(echo "x:$PATH:x" | tr ':' '\n' | grep "^/usr/local/bin$")
+    if [ -z "$BIN" ]; then
+        PATH="$PATH:/bin"
+    fi
+    if [ -z "$USRBIN" ]; then
+        PATH="$PATH:/usr/bin"
+    fi
+    if [ -z "$LOCALBIN" ]; then
+        PATH="$PATH:/usr/local/bin"
+    fi
     # --keepcache excludes --rm so need to remove any exited containers
     docker rm xtrkcad >/dev/null 2>&1
-    echo "nohup x11docker $X11DEBUG --printer --pulseaudio=host --network --home=$XTRKCAD_DATADIR --xephyr --user=$DOCKER_USER --desktop --size=1920x1280 xtrkcad:${XTRK_VER} /startxtrkcad.sh $* >/dev/null 2>&1 &"
-    nohup x11docker $X11DEBUG --printer --pulseaudio=host --network --home=$XTRKCAD_DATADIR --xephyr --user=$DOCKER_USER --desktop --size=1920x1280 --xopt -no-host-grab xtrkcad:${XTRK_VER} /startxtrkcad.sh $* >/dev/null 2>&1 &
+    #echo "nohup x11docker $X11DEBUG --printer --pulseaudio=host --network --home=$XTRKCAD_DATADIR --xephyr --user=$DOCKER_USER --desktop --size=1920x1280 --xopt -no-host-grab --clipboard=yes xtrkcad:${XTRK_VER} /startxtrkcad.sh \"$@\" >/dev/null 2>&1 &"
+    echo "nohup x11docker $X11DEBUG --printer --pulseaudio=host --network --home=$XTRKCAD_DATADIR --nxagent --user=$DOCKER_USER --desktop --size=1920x1280 --clipboard=yes xtrkcad:${XTRK_VER} /startxtrkcad.sh \"$@\" >/dev/null 2>&1 &"
+    nohup x11docker $X11DEBUG --printer --pulseaudio=host --network --home=$XTRKCAD_DATADIR --nxagent --user=$DOCKER_USER --desktop --size=1920x1280 --clipboard=yes xtrkcad:${XTRK_VER} /startxtrkcad.sh "$@" >/dev/null 2>&1 &
     echo "log at ~/.cache/x11docker/x11docker.log when session over"
     echo "your xtrkcad files (settings, track plans, etc.) in $XTRKCAD_DATADIR"
 }
@@ -195,11 +212,11 @@ vnc_password() {
 #####################################################################
 if running_in_docker; then
     xtrkcad_init
-    start_session $*
+    start_session "$@"
 else
     xtrkcad_hostinit
-    XTRK_FILE=$(basename $1 2>/dev/null)
+    XTRK_FILE=$(basename "$1" 2>/dev/null)
     # uncomment for debug only to start container with clean slate (removes track plans!)
     #rm -rf $XTRKCAD_DATADIR
-    startxtrkcad_container $XTRK_FILE
+    startxtrkcad_container "$XTRK_FILE"
 fi

@@ -27,13 +27,14 @@ RUN \
     apt-get update \
     && apt-get -y install wget sudo file less \
     && apt-get -qqy install xorg x11-apps \
-    && apt-get -y install menu python3-xdg \
+    && apt-get -y install menu python3-xdg python3-netifaces python3-cups python3-dbus \
     && apt-get -y install fluxbox \
     && apt-get -y install firefox-esr \
     && apt-get -y install rox-filer \
     && apt-get -y install libcups2 \
     && apt-get -y install alsa-utils \
     && apt-get -y install libpulse0 \
+    && apt-get -y install xpra \
     && true
 
 # xtrkcad
@@ -49,6 +50,13 @@ RUN \
     && useradd -m -u ${DOCKER_UID} ${DOCKER_USER} 2>&1 \
     && groupmod --gid ${DOCKER_AUDIO_GID} audio \
     && usermod -aG audio ${DOCKER_USER} \
+    && usermod -aG xpra ${DOCKER_USER} \
+    && mkdir -p /run/user/${DOCKER_UID} \
+    && chown ${DOCKER_UID}:${DOCKER_GID} /run/user/${DOCKER_UID} \
+    && chmod 1777 /run/user/${DOCKER_UID} \
+    && mkdir -p /run/xpra \
+    && chown root:xpra /run/xpra \
+    && chmod 1775 /run/xpra \
     && echo "${DOCKER_USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${DOCKER_USER} \
     && true
 

@@ -52,7 +52,11 @@ If your menu doesn't look like this, exit XtrkCad which should close the X11 win
 
 If you resize the X11 window, you'll need to click the `Restart Window Mgr` entry to see the toolbar at the bottom again. Menu items below this are defaults and not maintained by me. A word of caution: clicking `Exit` only exits the window manager thus losing control of any open windows under the X11 window, so don't do this. If you happen to, then close the entire X11 window and restart. Another way is to `docker exec` into the container and run `/usr/bin/startfluxbox &`.
 
-Output is also captured in /tmp/startxtrkcad.log.
+Copy/Paste is done by using the shift key with the mouse.
+
+Recent changes to use nxagent (in order to support copy/paste) makes startup longer, so give it 30s or so.
+
+Startup output is also captured in /tmp/startxtrkcad.log.
 
 ## Debug
 If the X window opens and closes during startup, something is wrong, 😉.
