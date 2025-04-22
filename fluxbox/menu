@@ -1,7 +1,7 @@
 # fluxbox menu goes in ~/.fluxbox/menu
 [begin] (fluxbox)
 [exec] (XTrackCAD) {xtrkcad} <xtrkcad>
-[exec] (XTrackCAD Doc) {firefox /usr/share/xtrkcad/html/contents.html} <firefox-esr>
+[exec] (XTrackCAD Doc) {xdg-open /usr/share/xtrkcad/html/contents.html} <Web Browser>
 [exec] (File Manager) {rox-filer}
 [restart] (Restart Window Mgr) {/usr/bin/startfluxbox}
 [separator]
